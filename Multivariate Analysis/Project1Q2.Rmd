@@ -1,0 +1,24 @@
+---
+title: "Project1Q2"
+author: "James"
+date: "1/28/2023"
+output:
+  word_document: default
+  pdf_document: default
+editor_options:
+  chunk_output_type: console
+---
+(a)
+```{r}
+bcf = read.table("/Users/jjael/Documents/SFU/Stat 445/Datasets/baker_corn_field_data.txt", header = TRUE)
+my_cols = c("red", "blue", "green","yellow","purple","pink","orange","black")
+pairs(bcf[,c(3,7,8)], labels = c("C","G","H"),col = my_cols[bcf$X1.1], main = "Matrix scatter plot",oma=c(3,3,3,15))
+par(xpd = TRUE)
+legend("bottomright", legend = as.vector(unique(bcf$X1.1)), fill=c("red", "blue", "green","yellow","purple","pink","orange","black"))
+
+```
+
+(b) List groups that appear to be relatively more tightly clustered than other groups. Groups 2, 3, and 7 seem to appear relatively more tightly clustered than other groups.
+
+(c) List groups that appear to be relatively widely dispersed. For each group listed, indicate at least one of the scatter plots to justify the choice. 
+Groups 1(the plot of variable C and G), 4(the plot of variable C and G), 5(the plot of variable G and H), 6(the plot of variable C and H), and 8(the plot of variable C and H) seem to appear relatively widely dispersed.

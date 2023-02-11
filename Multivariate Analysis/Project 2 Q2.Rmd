@@ -1,0 +1,18 @@
+---
+title: "Project 2 Q2"
+author: "James"
+date: "2/5/2023"
+output:
+  word_document: default
+  pdf_document: default
+editor_options:
+  chunk_output_type: console
+---
+a
+```{r}
+data = read.table("/Users/jjael/Documents/SFU/Stat 445/Datasets/data_for_pr2-1.txt", sep = ",")
+R = as.matrix(data)
+R
+```
+
+b The matrix R has 5 columns and 14 rows, dimension 5 x 14 and R is a rectangular matrix.

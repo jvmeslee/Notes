@@ -1,0 +1,68 @@
+---
+title: "Project 2 Q4"
+author: "James"
+date: "2/5/2023"
+output:
+  word_document: default
+  pdf_document: default
+editor_options:
+  chunk_output_type: console
+---
+a
+```{r}
+library(readxl)
+X <- read_excel("~/SFU/Stat 445/Datasets/Forbes-ten-companies.xlsx")
+pairs(X[,2:4],labels = c("Sales","Profit","Assets"))
+```
+
+b
+```{r}
+boxplot(X[,2:4],main = "Boxplot of X")
+```
+
+c yes the scale of this box plot will be an issue because we are arranging three variables on the same graph, each with different ranges of values, as you can see we can barely see Profits box plot.
+
+d
+```{r}
+X = as.matrix(X[,2:4],col_types="numeric")
+# sample mean vector
+colMeans(X)
+
+# sample covariance matrix
+cov(X)
+
+# sample correlation matrix
+cor(X)
+```
+
+e
+```{r}
+X_stand = X
+for(i in 1:3){
+  X_stand[,i] = scale(X[,i])
+}
+X_stand
+```
+
+f
+```{r}
+boxplot(X_stand, main = "Boxplot of X")
+```
+It does not indicate a scale issue.
+
+g
+```{r}
+X_stand
+# sample mean vector
+colMeans(X_stand)
+
+# sample covariance matrix
+cov(X_stand)
+
+# sample correlation matrix
+cor(X_stand)
+```
+
+h Yes they both have the same values, because the standardizes values have mean 0, through algebra we can find that the formula comes out to be equal.
+
+i Yes they both have the same values, same as above answer.

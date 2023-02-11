@@ -1,0 +1,23 @@
+---
+title: "Project1"
+author: "James Lee"
+date: "1/28/2023"
+output:
+  word_document: default
+  pdf_document: default
+editor_options:
+  chunk_output_type: console
+---
+
+(a) Create a matrix scatter plot for the data.
+```{r}
+library(readxl)
+cutdown <- read_excel("Datasets/cutdown_environment.xlsx")
+pairs(cutdown[,c("AAT","AST","AHC","Wind","Evap")], main = "Matrix scatter plot")
+```
+
+(b) Does the plot indicate a dependency between AAT and AST? Yes, the plot of AAT and AST show a moderate positive linear relationship.
+
+(c) Does the plot indicate a dependency between EVAP and AHC? Yes, the plot of EVAP and AHC show a moderate negative linear relationship.
+
+(d) Does the plot indicate a dependency between AAT and WIND? No, there seems to be no relationship in the AAT and WIND plot.

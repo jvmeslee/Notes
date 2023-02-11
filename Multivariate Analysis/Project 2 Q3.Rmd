@@ -1,0 +1,57 @@
+---
+title: "Project 2 Q3"
+author: "James"
+date: "2/5/2023"
+output:
+  word_document: default
+  pdf_document: default
+editor_options:
+  chunk_output_type: console
+---
+a
+```{r}
+library(readxl)
+trackrec <- read_excel("~/SFU/Stat 445/Datasets/w-nat-track-rec.xlsx", col_names = FALSE)
+X <- as.matrix(trackrec)
+Y <- as.matrix(X[,2:8])
+class(Y) <- "numeric"
+```
+
+b
+```{r}
+R <- cor(Y)
+R
+```
+
+c
+```{r}
+det(R)
+```
+The determinant came out to be non-zero, then the rows and columns of the matrix are linearly independent and the matrix is invertible. Additionaly, the determinant came out to be fairly close to 0 (9.01e-6), we can also say that the rows and columns of the matrix are fairly close to being linearly dependent.
+
+d
+```{r}
+z <- rbind(1,3,1,2,-1,1,-2)
+x <- solve(R,z)
+x
+```
+
+e
+```{r}
+norm(z - z)
+```
+Yes the values are as expected because the norm is the distance between vectors, the two vectors had the exact same values therefore 0 was expected.
+
+f
+```{r}
+z <- rbind(1,-1,-1,-1,0,2,1)
+w <- (R%*%R%*%R%*%R%*%R)%*%z
+w
+```
+
+g
+```{r}
+x = as.vector(w)
+y = as.vector(z)
+as.vector((x%*%y)/(y%*%y))*y
+```
