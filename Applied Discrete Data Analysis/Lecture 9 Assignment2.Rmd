@@ -1,0 +1,22 @@
+---
+title: "L9Q2"
+author: "James"
+date: "2/10/2023"
+output:
+  word_document: default
+  pdf_document: default
+---
+2
+```{r}
+library(readr)
+DoctorVisits <- read_csv("~/SFU/Stat 475/DoctorVisits.csv",show_col_types = FALSE)
+mod.fit <- glm(formula = badh ~ age,family=binomial(link=logit),data=DoctorVisits)
+
+# 5 year increase
+exp(5*mod.fit$coefficients[2])
+
+# Wald interval
+beta.ci <- confint.default(object = mod.fit, parm = "age", level = 0.95)
+exp(5*beta.ci)
+```
+So the odds of badh increase by 1.32 for each 5 year age increase, with a 95% CI from 1.24 to 1.40.

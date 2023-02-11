@@ -1,0 +1,11 @@
+---
+title: "Lecture 5 Assignment"
+author: "James"
+date: "2/1/2023"
+output:
+  word_document: default
+  pdf_document: default
+editor_options:
+  chunk_output_type: console
+---
+1. What is the relative risk of hospitalization for boosted vs. unboosted individuals? So the risk of hospitalization for boosted individuals is 2/10 (0.2) as high (or 80% lower) than unboosted individuals.

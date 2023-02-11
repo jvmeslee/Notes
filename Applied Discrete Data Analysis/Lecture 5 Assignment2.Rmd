@@ -1,0 +1,68 @@
+---
+title: "Lecture 5 Assignment2"
+author: "James"
+date: "2/3/2023"
+output:
+  word_document: default
+  pdf_document: default
+editor_options: 
+  chunk_output_type: console
+---
+Question 2 a)
+
+```{r}
+alpha <- 0.05
+w.v <- 15; n.v <- 24
+w.p <- 135; n.p <- 569
+pi.hat.v <- w.v/n.v; pi.hat.p <- w.p/n.p
+RR.hat <- pi.hat.v/pi.hat.p
+RR.hat
+```
+
+(b)
+Wald CI
+```{r}
+L <- log(RR.hat) - qnorm(1-alpha/2)*sqrt(1/w.v - 1/n.v + 1/w.p - 1/n.p)
+U <- log(RR.hat) + qnorm(1-alpha/2)*sqrt(1/w.v - 1/n.v + 1/w.p - 1/n.p)
+round(data.frame(exp(L),exp(U)),3)
+```
+
+Score CI
+```{r}
+library(PropCIs)
+riskscoreci(x1=w.v, n1=n.v, x2=w.p, n2=n.p, conf.level = 0.95)
+```
+
+C) Re-report
+
+```{r}
+# Wald
+c(exp(1.869),exp(3.713))
+# Score
+c(exp(1.758),exp(3.508))
+```
+Wald: with 95% confidence we believe that the true relative risk is between 6.48 and 40.98.
+Score: with 95% confidence we believe that the true relative risk is between 5.80 and 33.38
+This implies that use of condom does not reduce the risk of HIV.
+
+(d)
+No, the data suggests that ever having used a condom is not associated with a reduced risk of HIV, there are evidence to this. From relative risk, the estimated risk of HIV is 2.63 times as high (or 263% as high) with using a condom than without it, and also from the confidence intervals, they are well over 1, which indicates an increased risk for the use of condoms.
+
+e) Odds ratio
+
+```{r}
+odds.v <- pi.hat.v / (1 - pi.hat.v)
+odds.p <- pi.hat.p / (1 - pi.hat.p)
+(or.prob <- odds.v/odds.p)
+```
+so the estimated odds of HIV are 5.36 times as high with ever having used a condom than without it.
+
+f) Score CI
+
+```{r}
+library(PropCIs)
+orscoreci(x1=w.v, n1=n.v, x2=w.p, n2=n.p, conf.level = 0.95)
+```
+
+(g)
+The CIs for the OR and RR are not similar, this is because both probabilities of failure are far from 1, therefore, their ratio is also far from 1.

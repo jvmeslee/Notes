@@ -1,0 +1,51 @@
+---
+title: "Lecture 4 Assignment"
+author: "James"
+date: "1/25/2023"
+output:
+  word_document: default
+  pdf_document: default
+editor_options:
+  chunk_output_type: console
+---
+1.(a)
+```{r}
+alpha <- 0.05
+w.v <- 15; n.v <- 24
+w.p <- 135; n.p <- 569
+pi.hat.v <- w.v/n.v
+pi.hat.p <- w.p/n.p
+
+pi.bar <- (w.p + w.v)/(n.p + n.v)
+Z0 = (pi.hat.v - pi.hat.p) / sqrt(pi.bar*(1-pi.bar)*(1/n.v + 1/n.p))
+p.score <- pnorm(Z0) # Lower tail p-value
+
+Z0; p.score
+```
+Hypotheses: H0: pi1 - pi2 = 0 vs Ha: pi1 - pi2 != 0
+Test statistic: 4.280397
+p-value: 0.9999907
+Conclusion: In this case we fail to reject the null hypothesis, due to high p-value, this indicates that the sample did not provide sufficient evidence to conclude that condoms lower the probability of HIV infection.
+
+(b)
+```{r}
+library(PropCIs)
+diffscoreci(w.v, n.v, w.p, n.p,conf.level=1-alpha)
+```
+Score interval: 0.186398 < pi1 - pi2 < 0.555636, we can see from the interval, the probability of HIV infection of those who claim to use condoms is fairly similar to those who claim no use of condoms.
+
+(C)
+```{R}
+# Wald
+wald2ci(w.v, n.v, w.p, n.p, conf.level = 1 - alpha, adjust = "Wald")
+
+# Agresti-Caffo
+wald2ci(w.v, n.v, w.p, n.p, conf.level = 1 - alpha, adjust = "AC")
+```
+Wald interval: (0.190927, 0.584556)
+Agresti-Caffo interval: (0.186967, 0.567445)
+
+Yes, these values agree with the score interval.
+
+(d)
+The main reason would be in the data collection of this experiment. Respondents may not feel encouraged/comfortable to provide accurate, honest answers. This explains the fairly low count of people who claimed they have used condoms. we can improve this experiment if we are provided with honest, accurate answers. Therefore this is not a reliable dataset.

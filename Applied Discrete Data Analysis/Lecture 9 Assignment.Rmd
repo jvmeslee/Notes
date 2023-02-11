@@ -1,0 +1,44 @@
+---
+title: "L9Q3"
+author: "James"
+date: "2/9/2023"
+output:
+  word_document: default
+  pdf_document: default
+editor_options:
+  chunk_output_type: console
+---
+1. a
+```{r}
+library(readr)
+DoctorVisits <- read_csv("~/SFU/Stat 475/DoctorVisits.csv",show_col_types = FALSE)
+mod.fit <- glm(formula = badh ~ age,family=binomial(link=logit),data=DoctorVisits)
+x <- data.frame(age=c(20,40,60,100))
+pred <- predict(mod.fit, newdata=x, type="response")
+cbind(x, pred)
+range(DoctorVisits$age)
+```
+Looking at the datasets range of ages which is 20 to 60, we can say that the estimates age 20, 40 and 60 are reliable estimates. However, the age 100 is not included in the dataset, and is therefore only a prediction based on the model, which concludes that it is not a reliable estimate.
+
+b
+```{r}
+library(mcprofile)
+k <- as.matrix(cbind(1, x))
+profiles <- mcprofile(object=mod.fit, CM=k)
+ci.logit.LR <- confint(object=profiles, level=0.95, adjust = "none")
+ci.pi.LR <- exp(ci.logit.LR$confint)/(1 + exp(ci.logit.LR$confint))
+ci.pi.LR
+```
+We are 95% confident that the estimated probability of self-reported bad health for a woman aged 40 using LR CI is between 0.10 and 0.13.
+
+c
+```{r}
+alpha<-0.05
+linear.pred <- predict(mod.fit, newdata = x, type = "link", se = TRUE)
+pi.hat <- exp(linear.pred$fit)/(1 + exp(linear.pred$fit))
+CI.lin.lower <- linear.pred$fit - qnorm(p=c(1 - alpha/2))*linear.pred$se
+CI.lin.upper <- linear.pred$fit + qnorm(p=c(1 - alpha/2))*linear.pred$se
+CI.lin <- cbind(CI.lin.lower, CI.lin.upper)
+CI.pi <- exp(CI.lin)/(1+exp(CI.lin))
+round(data.frame(distance=x, pi.hat, lower = CI.pi[,1], upper = CI.pi[,2]),4)
+```

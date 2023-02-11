@@ -1,0 +1,33 @@
+---
+title: "L8Q2"
+author: "James"
+date: "2/10/2023"
+output:
+  word_document: default
+  pdf_document: default
+editor_options:
+  chunk_output_type: console
+---
+2. a
+```{r}
+library(car) 
+library(readr)
+DoctorVisits <- read_csv("~/SFU/Stat 475/DoctorVisits.csv",show_col_types = FALSE)
+mod.fit <- glm(formula = badh ~ age,family=binomial(link=logit),data=DoctorVisits)
+mod.fit2 <- glm(formula = badh ~ age + inc, family = binomial(link = "logit"), data = DoctorVisits)
+
+# Partial Test
+Anova(mod.fit2)
+
+teststat <- mod.fit$deviance - mod.fit2$deviance
+teststat
+```
+We can see that both variables seem to contribute significantly to the model, both with p-values < 0.05 (we reject each respective H0) and the test statistic came out to be 6.94.
+
+b
+```{r}
+mod.fit0 <- glm(formula=badh ~ 1, family=binomial(link=logit), data=DoctorVisits)
+anova(mod.fit0, mod.fit2, test = "Chisq")
+```
+-2log(A) = 90.49 which gives a tiny p-value on X22 (2df!). Concluding that the overall model fits far better than assuming all probabilities are constant, therefore both variables cannot be removed from the model. Not surprising given outcomes in (a) and (b) are equal.
+

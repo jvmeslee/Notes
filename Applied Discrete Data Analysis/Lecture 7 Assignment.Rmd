@@ -1,0 +1,32 @@
+---
+title: "Lecture 7 Assignment"
+author: "James"
+date: "2/1/2023"
+output:
+  word_document: default
+  pdf_document: default
+editor_options:
+  chunk_output_type: console
+---
+```{r}
+library(readr)
+DoctorVisits <- read_csv("~/SFU/Stat 475/DoctorVisits.csv")
+head(DoctorVisits)
+```
+
+2. The symbol pi in this problem is the response variable badh, a self assessment of their health, with 1=bad health and 0=not bad health.
+
+3.
+```{r}
+mod.fit <- glm(formula = badh ~ age,family=binomial(link=logit),data=DoctorVisits)
+mod.fit$coefficients
+```
+(a) logit(pi.hat) = -4.2461 + 0.0557age
+
+(b) Estimated Probabilities of bad health for women at ages 20, 40, and 60.
+```{r}
+age20 = -4.2461 + 0.0557*20
+age40 = -4.2461 + 0.0557*40
+age60 = -4.2461 + 0.0557*60
+c(age20,age40,age60)
+```

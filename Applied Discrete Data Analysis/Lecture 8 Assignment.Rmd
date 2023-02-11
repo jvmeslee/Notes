@@ -1,0 +1,30 @@
+---
+title: "L8Q1"
+author: "James"
+date: "2/9/2023"
+output:
+  word_document: default
+  pdf_document: default
+editor_options:
+  chunk_output_type: console
+---
+1. a 
+```{r}
+library(readr)
+DoctorVisits <- read_csv("~/SFU/Stat 475/DoctorVisits.csv",show_col_types = FALSE)
+mod.fit <- glm(formula = badh ~ age,family=binomial(link=logit),data=DoctorVisits)
+w <- aggregate(x=badh ~ age, data=DoctorVisits, FUN=sum)
+n <- aggregate(x=badh ~ age, data=DoctorVisits, FUN=length)
+w.n <- data.frame(age = w$age, success = w$badh, trials = n$badh, proportion = round(w$badh/n$badh,4))
+mod.fit.bin <- glm(formula=success/trials ~ age, weights=trials, family=binomial(link=logit), data=w.n)
+
+# LR CI
+round(confint(mod.fit.bin), digits=3)
+
+# Wald Intervals
+round(confint.default(mod.fit.bin), digits=3)
+```
+
+b
+Due to the high sample size, both outcomes are very similar. We are 95% confident, using LR as an example, that the interval -4.785 < β1 < -3.728 covers the true change in log odds for each 1 year change in age.
+We can see that the confidence interval does not include 0, therefore it indicates that age does influence whether the women identifies as having bad health.

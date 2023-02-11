@@ -1,0 +1,20 @@
+---
+title: "Lecture 7 Assignment2"
+author: "James"
+date: "2/3/2023"
+output:
+  word_document: default
+  pdf_document: default
+---
+```{r}
+library(readr)
+DoctorVisits <- read_csv("~/SFU/Stat 475/DoctorVisits.csv")
+head(DoctorVisits)
+```
+
+4. 
+```{r}
+mod.fit2 <- glm(formula = badh ~ age + inc, family = binomial(link = logit), data = DoctorVisits)
+mod.fit2
+```
+logit(pi.hat) = -3.8433 + 0.0573age - 0.0002inc
